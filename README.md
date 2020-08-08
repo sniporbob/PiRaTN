@@ -1,9 +1,49 @@
 # PiATAK
 Services, timers, and configuration for PiATAK.
 
+This setup will allow position updates, broadcast map markers, and geochat messages to be sent over radio.
+
 # Overview Of Components
 
+**HARDWARE**
 
+1x Pi Zero W
+
+1x dual 18650 battery holder
+
+1x USB hub
+
+1x USB sound card
+
+1x PTT circuit (custom made, see the hardware folder for additional info)
+
+2x 3.5mm audio jacks
+
+1x snap on ferrite
+
+1x 3.5mm trs to 3.5mm trs cable
+
+1x 2.5mm trs to 3.5mm trs cable
+
+**Scripts**
+
+direwolf.service: starts direwolf which converts data into AFSK and sends it out the audio device, and also listens to the mic input for AFSK audio to convert back to data.
+
+tncattach.service: starts tncattach which makes direwolf available as a tcp/ip network interface.
+
+multicastwlan0.service: adds the routing info for multicast packets on the wlan0 network interface.
+
+multicasttnc0.service: adds the routing info for multicast packets on the tnc0 network interface.
+
+socatChatTx.service: Listens to the wlan0 interface for multicast packets created by geochat messages and forwards them out the tnc0 interface.
+
+socatChatRx.service: Listens to the tnc0 interface for multicast packets from geochat messages and forwards them out the wlan0 interface.
+
+socatPositTx.service: Listens to the wlan0 interface for multicast packets created by position updates or broadcast map markers, and forwards them out the tnc0 interface.
+
+socatPositRx.service: Listens to the tnc0 interface for multicast packets from position updates or broadcast map markers, and forwards them out the wlan0 interface.
+
+iptablesBlockPing.service: With SA MULTICAST enabled in ATAK a periodic (approx every 40 seconds) message is sent containing no useful information whatsoever. This is a firewall rule to prevent needlessly cluttering the network with these useless messages.
 
 # Required Software
 
@@ -218,4 +258,19 @@ The services are started in the following order with the following boot timing:
 
 If a radio is turned on and hooked up it will transmit a fair bit of AFSK data at step two, then a smaller burst of AFSK data at step 7 and at step 8. If there are users already on ATAK using the network it is advisable to keep the radio powered off or unhooked until after all services have started (approx 3 minutes) to avoid unnecessary radio traffic.
 
+# ATAK App Configuration
+
+The frequency of position updates must be reduced. Go to:
+
+Settings > Show All Preferences > Device Preferences > Reporting Preferences
+
+Change the Dynamic Reporting Rate for all (Unreliable) categories to much larger values. Due to limited network bandwidth the Maximum rate should probably be no less than 60, with correspondingly larger numbers for the Minimum and Stationary rate.
+
+# Known Issues
+
+Only data broadcast over UDP will be sent over the radio. Anything without a "broadcast" option is unlikely to be supported. Direct chat is not supported but the All Chat Rooms does function correctly.
+
+It is possible for messages to be lost if multiple users transmit simultaneously, or if one user attempts to rapidly transmit a significant number of items. Direwolf attempts to avoid transmitting over other radio traffic but seems to throw away packets if it cannot transmit them within a fairly short window.
+
+ATAK ignores the maximum reporting rate setting when large changes in speed or direction are involved, for example a car accelerating, breaking, or going around a corner. In these situations ATAK will send multiple rapid position updates. A single moving vehicle can completely saturate the radio link and prevent any other nodes from sending position or chat information.
 #
