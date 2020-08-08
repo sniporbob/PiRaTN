@@ -25,7 +25,7 @@ This setup will allow position updates, broadcast map markers, and geochat messa
 
 1x 2.5mm trs to 3.5mm trs cable
 
-**Scripts**
+**SCRIPTS**
 
 direwolf.service: starts direwolf which converts data into AFSK and sends it out the audio device, and also listens to the mic input for AFSK audio to convert back to data.
 
