@@ -7,7 +7,7 @@ This setup will allow position updates, broadcast map markers, and geochat messa
 
 A Pi Zero W is set up as a wifi access point to which an ATAK EUD is connected. ATAK generates a UDP multicast message and sends it over wifi. On the Pi an instance of socat sees the multicast message and forwards it to the network interface created by tncattach. This causes it to be fed into direwolf, which converts the data into an AFSK signal and sends the audio out the USB sound card. The sound card is plugged into a radio which transmits the tones over the air.
 
-On the receiving end the reverse happens. A radio picks up the tones and is connected to a USB sound card. Listening to the sound card input is direwolf, which decodes the tones back into data and sends the data in via the network interface created by tncattach. An instance of socat is listening to the tnc interface for multicast packets and forwards them to the wifi interface, which transmits the multicast packets out to the ATAK EUD connected to the wifi.
+On the receiving end the reverse happens. A radio picks up the tones and is connected to a USB sound card. Direwolf is listening to the sound card input, decodes the tones back into data, and sends the data in via the network interface created by tncattach. An instance of socat is listening to the tnc interface for multicast packets and forwards them to the wifi interface, which transmits the multicast packet out to the ATAK EUD connected to the wifi.
 
 # Overview Of Components
 
