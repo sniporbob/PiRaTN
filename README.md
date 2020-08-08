@@ -17,7 +17,7 @@ Download and install socat via apt
 
 Download and install libasound2-dev via apt
 
-  sudo apt-get install libasound2-dev
+   sudo apt-get install libasound2-dev
 
 Download direwolf from github, then compile and install
 
