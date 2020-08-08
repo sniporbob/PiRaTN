@@ -150,8 +150,6 @@ Note THIS MUST BE UNIQUE FOR EACH Pi. For example Pi#2 could have 10.99.99.2/24,
 
 **SERVICE CONFIGURATIONS**
 
-If you have changed from the default IP address subnets you must edit all four of the socat .service files and change the IP addresses to match what you have specified. Do not change any IP address beginning with 224 or 239.
-
 If you have left the IP address subnets as their defaults then you only need to edit the socatChatRx.service file and the socatPositRx.service file.
 
     sudo nano /etc/systemd/system/socatChatRx.Service
@@ -162,6 +160,58 @@ Find the following section and adjust the second IP address (the one after the c
 
 ip-add-membership=224.10.10.1:10.99.99.1
 
+If you have changed from the default IP address subnets you must edit all four of the socat .service files and change the IP addresses to match what you have specified. Do not change any IP address beginning with 224 or 239.
 
+# Automatic Startup
+
+Lets make everything start by default when the Pi boots up.
+
+    sudo rfkill unblock wlan
+    
+    sudo systemctl unmask hostapd
+    
+    sudo systemctl enable hostapd
+    
+    sudo systemctl enable direwolf.timer
+    
+    sudo systemctl enable tncattach.timer
+    
+    sudo systemctl enable iptablesBlockPing.timer
+    
+    sudo systemctl enable multicastwlan0.timer
+    
+    sudo systemctl enable multicasttnc0.timer
+    
+    sudo systemctl enable socatChatTx.timer
+    
+    sudo systemctl enable socatPositTx.timer
+    
+    sudo systemctl enable socatChatRx.timer
+    
+    sudo systemctl enable socatPositRx.timer
+    
+The timers cause all of the services to start a specific number of seconds after boot. The first service to start is direwolf which launches approx 10 seconds after a Pi Zero W finishes booting to the desktop. A faster Pi would probably boot faster and therefore the OnBootSec could be decreased. These timings are very slow and should give a Pi Zero W plenty of time to start up. In total it takes roughly 3 minutes from power on until all the services are started.
+
+The services are started in the following order with the following boot timing:
+
+1) direwolf @ 80sec
+
+2) tncattach @ 95sec
+
+3) multicastwlan0 @ 100sec
+
+4) socatChatTx @115 sec
+
+5) socatPositTx @ 120sec
+
+6) multicasttnc0 @ 124sec
+
+7) socatChatRx @ 130sec
+
+8) socatPositRx @ 140sec
+
+9) iptablesBlockPing @140sec
+
+If a radio is turned on and hooked up it will transmit a fair bit of AFSK data at step two, then a smaller burst of AFSK data at step 7 and at step 8. If there are users already on ATAK using the network it is advisable to keep the radio powered off or unhooked until after all services have started (approx 3 minutes) to avoid unnecessary radio traffic.
 
 #
