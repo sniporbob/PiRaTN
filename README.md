@@ -279,4 +279,33 @@ Only data broadcast over UDP will be sent over the radio. Anything without a "br
 It is possible for messages to be lost if multiple users transmit simultaneously, or if one user attempts to rapidly transmit a significant number of items. Direwolf attempts to avoid transmitting over other radio traffic but seems to throw away packets if it cannot transmit them within a fairly short window.
 
 ATAK ignores the maximum reporting rate setting when large changes in speed or direction are involved, for example a car accelerating, breaking, or going around a corner. In these situations ATAK will send multiple rapid position updates. A single maneuvering vehicle can completely saturate the radio link and prevent any other nodes from sending position or chat information.
-#
+
+# Additional
+
+**HIGHLY RECOMMENDED**: Add a power button to the Pi. It is not good to simply cut power to the Pi. This is reported to cause SD card corruption. The easy solution is adding dtoverlay=gpio-shutdown to /boot/config.txt and using a momentary pushbutton between GPIO3 and ground.
+
+https://www.embedded-computing.com/guest-blogs/raspberry-pi-power-up-and-shutdown-with-a-physical-button
+
+**Disabling wireless AP mode** (so you can connect the Pi back to the internet via wifi):
+
+Edit dhcpcd.conf
+
+    sudo nano /etc/dhcpcd.conf
+    
+Comment out the following three lines by putting # in front:
+
+    #interface wlan0
+    #static ip_address=10.63.18.1/24
+    #nohook wpa_supplicant
+
+Shut down the wifi interface, stop the dnsmasq service, stop the hostapd service, restart dhcpcd to reload the config, bring up the wifi interface
+
+    sudo ifcongig wlan0 down
+    sudo systemctl stop dnsmasq
+    sudo systemctl stop hostapd
+    sudo systemctl restart dhcpcd
+    sudo ifconfig wlan0 up
+    
+The Pi should now be out of AP mode. You should be able to connect the Pi to a wifi network and use the internet.
+
+When done using the internet, to re-enable AP mode remove the comments from dhcpcd.conf, bring down wlan0, restart dhcpcd, start dnsmasq and hostapd, bring up wlan0. Every so often it seems to hang so try restarting those three services if that happens.
