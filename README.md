@@ -240,11 +240,11 @@ Make everything start by default when the Pi boots up.
     
     sudo systemctl enable socatPositRx.timer
     
-The timers cause all of the services to start a specific number of seconds after boot. The first service to start is direwolf which launches approx 10 seconds after a Pi Zero W finishes booting to the desktop. A faster Pi would probably boot faster and therefore the OnBootSec could be decreased. These timings are very slow and should give a Pi Zero W plenty of time to start up. In total it takes roughly 3 minutes from power on until all the services are started.
-
 Reboot and check that everything starts up as it should. You can check to see if a service is active by running:
 
     systemctl is-active [servicename]
+
+The timers cause all of the services to start a specific number of seconds after boot. The first service to start is direwolf which launches approx 10 seconds after a Pi Zero W finishes booting to the desktop. A faster Pi would probably boot faster and therefore the OnBootSec could be decreased. These timings are very slow and should give a Pi Zero W plenty of time to start up. In total it takes roughly 3 minutes from power on until all the services are started.
 
 The services are started in the following order with the following boot timing:
 
