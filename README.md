@@ -274,11 +274,11 @@ Change the Dynamic Reporting Rate for all (Unreliable) categories to much larger
 
 # Known Issues
 
-Only data broadcast over UDP will be sent over the radio. Anything without a "broadcast" option is unlikely to be supported. Direct chat is not supported but the All Chat Rooms does function correctly.
+Only information broadcast over UDP will be sent over the radio. Anything without a "broadcast" option is unlikely to be supported. Direct chat is not supported but the All Chat Rooms does function correctly. There is no receipt confirmation.
 
 It is possible for messages to be lost if multiple users transmit simultaneously, or if one user attempts to rapidly transmit a significant number of items. Direwolf attempts to avoid transmitting over other radio traffic but seems to throw away packets if it cannot transmit them within a fairly short window.
 
-ATAK ignores the maximum reporting rate setting when large changes in speed or direction are involved, for example a car accelerating, breaking, or going around a corner. In these situations ATAK will send multiple rapid position updates. A single maneuvering vehicle can completely saturate the radio link and prevent any other nodes from sending position or chat information.
+ATAK ignores the maximum reporting rate setting when large changes in speed or direction are involved, for example a car accelerating, braking, or going around a corner. In these situations ATAK will send multiple rapid position updates. A single maneuvering vehicle can completely saturate the radio link and prevent any other nodes from sending position or chat information.
 
 # Additional
 
