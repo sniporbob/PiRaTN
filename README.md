@@ -218,6 +218,8 @@ Make everything start by default when the Pi boots up.
 
     sudo rfkill unblock wlan
     
+    sudo systemctl daemon-reload
+    
     sudo systemctl unmask hostapd
     
     sudo systemctl enable hostapd
