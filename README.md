@@ -3,7 +3,7 @@ Services, timers, and configuration for PiATAK.
 
 This setup will allow position updates, broadcast map markers, and geochat messages to be sent over radio. A crude ascii diagram of the network is:
 
-(ATAK) <--wifi--> (Pi Zero W + VHF/UHF Radio) <--RF Signal--> (VHF/UHF Radio + Pi Zero W) <--wifi--> (ATAK)
+    (ATAK) <--wifi--> (Pi Zero W + VHF/UHF Radio) <--RF Signal--> (VHF/UHF Radio + Pi Zero W) <--wifi--> (ATAK)
 
 A Pi Zero W is set up as a wifi access point to which an ATAK EUD is connected. ATAK generates a UDP multicast message and sends it over wifi. On the Pi an instance of socat sees the multicast message and forwards it to the network interface created by tncattach. This causes it to be fed into direwolf, which converts the data into an AFSK signal and sends the audio out the USB sound card. The sound card is plugged into a radio which transmits the tones over the air.
 
