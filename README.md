@@ -3,15 +3,49 @@ Services, timers, and configuration for PiATAK
 
 # Required Software
 
-Download direwolf from github, then compile and install
-
-Download tncattach from github, then compile and install
-
 Download and install hostapd via apt
+
+    sudo apt install hostapd
 
 Download and install dnsmasq via apt
 
+    sudo apt install dnsmasq
+
 Download and install socat via apt
+
+    sudo apt-get install socat
+
+Download and install libasound2-dev via apt
+
+  sudo apt-get install libasound2-dev
+
+Download direwolf from github, then compile and install
+
+    git clone https://www.github.com/wb2osz/direwolf.git
+    
+    cd direwolf
+    
+    make
+    
+    sudo make install
+    
+    make install-conf
+    
+    make install-rpi
+    
+    cd ~
+    
+    cp sdr.conf sdr_orig.conf
+
+Download tncattach from github, then compile and install
+
+    git clone https://www.github.com/markqvist/tncattach.git
+    
+    cd tncattach
+    
+    make
+    
+    sudo make install
 
 # Installation
 
@@ -111,5 +145,21 @@ Edit the following IP address to be within the IP address range you plan to use 
 --ipv4 10.99.99.1/24
 
 Note THIS MUST BE UNIQUE FOR EACH Pi. For example Pi#2 could have 10.99.99.2/24, Pi#3 could have 10.99.99.3/24, etc.
+
+**SERVICE CONFIGURATIONS**
+
+If you have changed from the default IP address subnets you must edit all four of the socat .service files and change the IP addresses to match what you have specified. Do not change any IP address beginning with 224 or 239.
+
+If you have left the IP address subnets as their defaults then you only need to edit the socatChatRx.service file and the socatPositRx.service file.
+
+    sudo nano /etc/systemd/system/socatChatRx.Service
+    
+    sudo nano /etc/systemd/system/socatPositRx.Service
+    
+Find the following section and adjust the second IP address (the one after the colon : ) to match the IP address you specified in the tncattach.service file.
+
+ip-add-membership=224.10.10.1:10.99.99.1
+
+
 
 #
