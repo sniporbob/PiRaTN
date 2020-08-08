@@ -1,0 +1,9 @@
+[Unit]
+Description=Adds multicast route to wlan0
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/route add -net 224.0.0.0 netmask 240.0.0.0 wlan0
+
+[Install]
+WantedBy=multi-user.target

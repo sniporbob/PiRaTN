@@ -1,0 +1,9 @@
+[Unit]
+Description=Start socat position Tx forwarding on boot
+
+[Timer]
+AccuracySec=1
+OnBootSec=120
+
+[Install]
+WantedBy=timers.target

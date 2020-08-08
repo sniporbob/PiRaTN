@@ -1,0 +1,9 @@
+[Unit]
+Description=Start socat chat Rx forwarding on boot
+
+[Timer]
+AccuracySec=1
+OnBootSec=130
+
+[Install]
+WantedBy=timers.target

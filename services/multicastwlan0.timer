@@ -1,0 +1,9 @@
+[Unit]
+Description=Start multicast route for wlan0 on boot
+
+[Timer]
+AccuracySec=1
+OnBootSec=100
+
+[Install]
+WantedBy=timers.target

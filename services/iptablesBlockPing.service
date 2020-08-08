@@ -1,0 +1,9 @@
+[Unit]
+Description=Iptables rule to block ATAK SA MULTICAST pings
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/iptables -I INPUT -p udp -m length --length 1:76 -j DROP
+
+[Install]
+WantedBy=multi-user.target

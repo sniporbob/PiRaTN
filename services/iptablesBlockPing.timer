@@ -1,0 +1,9 @@
+[Unit]
+Description=Start iptables rule to block ATAK pings  on boot
+
+[Timer]
+AccuracySec=1
+OnBootSec=140
+
+[Install]
+WantedBy=timers.target

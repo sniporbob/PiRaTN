@@ -1,0 +1,12 @@
+[Unit]
+Description=Starts socat chat multicast tx over tnc0
+Requires=tncattach.service
+After=tncattach.service
+
+[Service]
+ExecStart=/usr/bin/socat UDP4-RECVFROM:17012,ip-add-membership=224.10.10.1:10.63.18.1,fork,reuseaddr,ip-multicast-loop=0,range=10.63.18.0/24 UDP4-DATAGRAM:224.10.10.1:17012,range=10.80.80.0/24,ip-multicast-loop=0
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

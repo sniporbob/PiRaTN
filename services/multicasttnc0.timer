@@ -1,0 +1,9 @@
+[Unit]
+Description=Start multicast route for tnc0 on boot
+
+[Timer]
+AccuracySec=1
+OnBootSec=124
+
+[Install]
+WantedBy=timers.target
