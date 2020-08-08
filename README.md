@@ -46,6 +46,8 @@ Download tncattach from github, then compile and install
     make
     
     sudo make install
+    
+    cd ~
 
 # Installation
 
