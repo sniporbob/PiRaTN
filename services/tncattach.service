@@ -4,7 +4,7 @@ Requires=direwolf.service
 After=direwolf.service
 
 [Service]
-ExecStart=/usr/local/sbin/tncattach --ethernet --mtu 1480 --noipv6 --ipv4 10.80.80.95/24 /tmp/kisstnc 115200
+ExecStart=/usr/local/sbin/tncattach --ethernet --mtu 1480 --noipv6 --ipv4 10.99.99.1/24 /tmp/kisstnc 115200
 
 [Install]
 WantedBy=multi-user.target
