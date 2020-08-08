@@ -1,5 +1,9 @@
 # PiATAK
-Services, timers, and configuration for PiATAK
+Services, timers, and configuration for PiATAK.
+
+# Overview Of Components
+
+
 
 # Required Software
 
@@ -156,11 +160,11 @@ If you have left the IP address subnets as their defaults then you only need to 
     
     sudo nano /etc/systemd/system/socatPositRx.Service
     
-Find the following section and adjust the second IP address (the one after the colon : ) to match the IP address you specified in the tncattach.service file.
+Find the following section and adjust the second IP address (the one after the colon : ) to match the IP address you specified in the tncattach.service file. This will be unique for each Pi.
 
 ip-add-membership=224.10.10.1:10.99.99.1
 
-If you have changed from the default IP address subnets you must edit all four of the socat .service files and change the IP addresses to match what you have specified. Do not change any IP address beginning with 224 or 239.
+If you have changed from the default IP address subnets you must edit all four of the socat .service files and change the IP addresses to match what you have specified. Do not change any of the IP address beginning with 224 or 239.
 
 # Automatic Startup
 
