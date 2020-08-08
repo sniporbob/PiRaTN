@@ -314,7 +314,7 @@ Shut down the wifi interface, stop the dnsmasq service, stop the hostapd service
     
 The Pi should now be out of AP mode. You should be able to connect the Pi to a wifi network and use the internet.
 
-When done using the internet, to re-enable AP mode remove the comments from dhcpcd.conf, bring down wlan0, restart dhcpcd, start dnsmasq and hostapd, bring up wlan0. Every so often it seems to hang so try restarting those three services if that happens.
+When done using the internet, to re-enable AP mode uncomment the three lines from dhcpcd.conf, bring down wlan0, restart dhcpcd, start dnsmasq and hostapd, bring up wlan0. Every so often it seems to hang so try restarting those three services if that happens.
 
 # Credits
 
