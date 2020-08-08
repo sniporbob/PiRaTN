@@ -1,7 +1,13 @@
 # PiATAK
 Services, timers, and configuration for PiATAK.
 
-This setup will allow position updates, broadcast map markers, and geochat messages to be sent over radio.
+This setup will allow position updates, broadcast map markers, and geochat messages to be sent over radio. A crude ascii diagram of the network is:
+
+(ATAK) <--wifi--> (Pi Zero W + VHF/UHF Radio) <--RF Signal--> (VHF/UHF Radio + Pi Zero W) <--wifi--> (ATAK)
+
+A Pi Zero W is set up as a wifi access point to which an ATAK EUD is connected. ATAK generates a UDP multicast message and sends it over wifi. On the Pi an instance of socat sees the multicast message and forwards it to the network interface created by tncattach. This causes it to be fed into direwolf, which converts the data into an AFSK signal and sends the audio out the USB sound card. The sound card is plugged into a radio which transmits the tones over the air.
+
+On the receiving end the reverse happens. A radio picks up the tones and is connected to a USB sound card. Listening to the sound card input is direwolf, which decodes the tones back into data and sends the data in via the network interface created by tncattach. An instance of socat is listening to the tnc interface for multicast packets and forwards them to the wifi interface, which transmits the multicast packets out to the ATAK EUD connected to the wifi.
 
 # Overview Of Components
 
@@ -272,5 +278,5 @@ Only data broadcast over UDP will be sent over the radio. Anything without a "br
 
 It is possible for messages to be lost if multiple users transmit simultaneously, or if one user attempts to rapidly transmit a significant number of items. Direwolf attempts to avoid transmitting over other radio traffic but seems to throw away packets if it cannot transmit them within a fairly short window.
 
-ATAK ignores the maximum reporting rate setting when large changes in speed or direction are involved, for example a car accelerating, breaking, or going around a corner. In these situations ATAK will send multiple rapid position updates. A single moving vehicle can completely saturate the radio link and prevent any other nodes from sending position or chat information.
+ATAK ignores the maximum reporting rate setting when large changes in speed or direction are involved, for example a car accelerating, breaking, or going around a corner. In these situations ATAK will send multiple rapid position updates. A single maneuvering vehicle can completely saturate the radio link and prevent any other nodes from sending position or chat information.
 #
