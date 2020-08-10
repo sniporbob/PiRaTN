@@ -318,7 +318,9 @@ When done using the internet, to re-enable AP mode uncomment the three lines fro
 
 # Credits
 
-Delta Bravo One Five for figuring out the socat commands to make this work
+CSUB Fab Lab for 3D printing and circuits.
+
+Delta Bravo One Five for figuring out the socat commands to make this work. "dB SPL" on the ATAK Discord.
 
 https://github.com/DeltaBravo15
 
