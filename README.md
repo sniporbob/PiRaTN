@@ -1,5 +1,5 @@
-# PiATAK
-Services, timers, and configuration for PiATAK.
+# PiRaTN
+Services, timers, and configuration for Pi Radio TNC Network.
 
 This setup will allow position updates, broadcast map markers, and geochat messages to be sent over radio. A crude ascii diagram of the network is:
 
