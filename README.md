@@ -162,7 +162,7 @@ ssid: set to whatever you want your wireless network on this Pi to be called
 
 channel: set to whatever wifi channel you want. Recommend only using 1, 6, and 11 as these are the non-overlapping channels
 
-wpa_passphrase: set to your desired wifi password
+wpa_passphrase: set to your desired wifi password. Minimum 8 characters, maximum 63.
 
 ====Run the following command to edit dhcpcd.conf====
 
