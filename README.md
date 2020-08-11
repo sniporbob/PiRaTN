@@ -101,19 +101,39 @@ Download tncattach from github, then compile and install
 
 # Installation
 
+    git clone https://github.com/sniporbob/PiRaTN.git
+
 **SERVICES FOLDER**
 
-  Copy all .service and .timer files to /etc/systemd/system/
+    cd PiRaTN/services
+
+Copy all .service and .timer files to /etc/systemd/system/
+    
+    sudo cp *.services /etc/systemd/system
+    
+    sudo cp *.timer /etc/systemd/system
+    
+    cd ~
 
 **CONFIG FOLDER**
 
+    cd PiRaTN/config
+
 Copy sdr.conf to /home/pi/
+
+    cp sdr.conf /home/pi/
 
 Copy dhcpcd.conf to /etc/
 
+    sudo cp dhcpcd.conf /etc/
+
 Copy dnsmasq.conf to /etc/
 
+    sudo cp dnsmasq.conf /etc/
+
 Copy hostapd.conf to /etc/hostapd/
+
+    sudo cp hostapd.conf /etc/hostapd/
 
 # Configuration
 
