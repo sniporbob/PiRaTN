@@ -222,9 +222,9 @@ Note THIS MUST BE UNIQUE FOR EACH Pi. For example Pi#2 could have 10.99.99.2/24,
 
 If you have left the IP address subnets as their defaults then you only need to edit the socatChatRx.service file and the socatPositRx.service file.
 
-    sudo nano /etc/systemd/system/socatChatRx.Service
+    sudo nano /etc/systemd/system/socatChatRx.service
     
-    sudo nano /etc/systemd/system/socatPositRx.Service
+    sudo nano /etc/systemd/system/socatPositRx.service
     
 Find the following section and adjust the second IP address (the one after the colon : ) to match the IP address you specified in the tncattach.service file. This will be unique for each Pi.
 
