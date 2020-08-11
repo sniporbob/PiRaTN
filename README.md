@@ -93,7 +93,7 @@ Download tncattach from github, then compile and install
     
     cd tncattach
     
-    make
+    sudo make
     
     sudo make install
     
