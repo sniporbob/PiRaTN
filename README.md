@@ -21,7 +21,7 @@ On the receiving end the reverse happens. A radio picks up the tones and is conn
 
 1x USB sound card
 
-1x PTT circuit (custom made, see the hardware folder for additional info)
+1x PTT circuit (custom made, see the circuit folder for additional info)
 
 2x 3.5mm audio jacks
 
