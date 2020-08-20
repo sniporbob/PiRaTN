@@ -53,6 +53,9 @@ iptablesBlockPing.service: With SA MULTICAST enabled in ATAK a periodic (approx 
 
 # Required Software
 
+These instructions were written for a standard Raspberry Pi OS installation. If you choose to use Raspberry Pi OS Lite,
+you will also have to install git since it does not come preinstalled.
+
 Download and install hostapd via apt
 
     sudo apt install hostapd
