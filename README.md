@@ -112,9 +112,9 @@ Download tncattach from github, then compile and install
 
 Copy all .service and .timer files to /etc/systemd/system/
     
-    sudo cp *.service /etc/systemd/system
+    sudo cp *.service /etc/systemd/system/
     
-    sudo cp *.timer /etc/systemd/system
+    sudo cp *.timer /etc/systemd/system/
     
     cd ~
 
