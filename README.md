@@ -1,7 +1,13 @@
 # PiRaTN
 Services, timers, and configuration for Pi Radio TNC Network.
 
-This setup will allow position updates, broadcast map markers, and geochat messages to be sent over radio. A crude ascii diagram of the network is:
+# Experimental TCP Branch - !!CONFIG & SERVICE FILES NOT UPLOADED YET!!
+This is a slightly more complex setup. Understanding of IP addresses and netmasks is highly recommended. Full support is *unconfirmed* thanks to a mysterious closed
+tcp port on one of my android devices, however not counting that issue it is suspected that this setup is fully functional.
+
+This setup will allow all features of ATAK to be sent over radio. Be aware that nearly all features utilizing the "send" button require fast radios.
+A VHF/UHF radio running AFSK 1200 will only be fast enough for "broadcast" messages and not anything utilizing the "send" button.
+A crude ascii diagram of the network is:
 
     (ATAK) <--wifi--> (Pi Zero W + VHF/UHF Radio) <--RF Signal--> (VHF/UHF Radio + Pi Zero W) <--wifi--> (ATAK)
 
@@ -19,6 +25,10 @@ On the receiving end the reverse happens. A radio picks up the tones and is conn
 
 1x USB hub
 
+Pick one of the following options
+
+==== Option 1: VHF/UHF Radio (tested with Baofeng UV-5R and Baofeng BF-F8HP) ====
+
 1x USB sound card
 
 1x PTT circuit (custom made, see the circuit folder for additional info)
@@ -30,6 +40,13 @@ On the receiving end the reverse happens. A radio picks up the tones and is conn
 1x 3.5mm trs to 3.5mm trs cable
 
 1x 2.5mm trs to 3.5mm trs cable
+
+1x VHF/UHF Radio
+
+==== Option 2: RNode LoRa Radio ====
+
+1x RNode
+1x USB Mini cable
 
 **SCRIPTS**
 
@@ -50,6 +67,8 @@ socatPositTx.service: Listens to the wlan0 interface for multicast packets creat
 socatPositRx.service: Listens to the tnc0 interface for multicast packets from position updates or broadcast map markers, and forwards them out the wlan0 interface.
 
 iptablesBlockPing.service: With SA MULTICAST enabled in ATAK a periodic (approx every 40 seconds) message is sent containing no useful information whatsoever. This is a firewall rule to prevent needlessly cluttering the network with these useless messages.
+
+pi[X]route.service: adds the routing info for tcp packets on the tnc0 network interface to other Pis. The X is replaced by the Pi number.
 
 # Required Software
 
@@ -140,15 +159,15 @@ Copy hostapd.conf to /etc/hostapd/
 
 # Configuration
 
-You must decide on two IP address subnets for your ATAK network. One subnet will be for the "wlan0" short range wifi network, and IP addresses in this range will be assigned by the Pi to your end user devices (phone, tablet, etc). The other subnet will be for the "tnc0" long range radio link and you must manually specify this IP address on each Pi. Each Pi should be given it's own unique IP address for tnc0. In the provided files the IP range of 10.10.10.x is used for the wlan0 interface, and the IP range of 10.99.99.x is used for the tnc0 interface. You may use these or change them according to your preference. You may use the exact same wlan0 IP addresses across every Pi but you must edit the tnc0 interface IP address and assign a unique address for each individual Pi.
+You must decide on IP address subnets for your ATAK network. A unique subnet will be for each "wlan0" short range wifi network on each Pi, and IP addresses in this range will be assigned by the Pi to your end user devices (phone, tablet, etc). There will also be a subnet for all "tnc0" long range radio devices. Each Pi should be given it's own unique IP address for tnc0, and it's own unique IP address range for wlan0. In the provided files the IP range of 10.10.Pi.x is used for the wlan0 interface, with "Pi" being the Pi number. The IP range of 10.99.99.Pi is used for the tnc0 interface, where "Pi" is the Pi number. You may use this scheme or change it according to your preference, but remember each Pi should have it's own range of wlan0 IP addresses and each tnc0 interface needs it's own unique IP assigned to it.
 
 Example setup:
 
-Pi#1: wlan0 with IP range 10.10.10.x, tnc0 with static IP address 10.99.99.1
+Pi#1: wlan0 with IP range 10.10.1.x, tnc0 with static IP address 10.99.99.1
 
-Pi#2: wlan0 with IP range 10.10.10.x, tnc0 with static IP address 10.99.99.2
+Pi#2: wlan0 with IP range 10.10.2.x, tnc0 with static IP address 10.99.99.2
 
-Following this readme without changing any IP addresses will set up Pi#1 exactly as this example. To set up your second Pi following this readme, just replace all instances of 10.99.99.1 with 10.99.99.2
+Following this readme without changing any IP addresses will set up Pi#1 exactly as this example. To set up your second Pi following this readme, replace all instances of 10.99.99.1 with 10.99.99.2, and all instances of 10.10.1.x with 10.10.2.x.
 
 --------
 **WLAN0 CONFIGURATION**
